@@ -9,11 +9,13 @@
 
 <script>
 import HeaderTitle from './components/HeaderTitle';
+
 export default {
   name: 'App',
   components: {
     HeaderTitle
-    }
+    },
+  
 }
 </script>
 

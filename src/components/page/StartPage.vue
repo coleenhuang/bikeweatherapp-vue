@@ -8,7 +8,11 @@
             </label>
             <label for='country'>
               <span>Country</span>
-              <select id="country" name="country" class="form-control">
+              <select>
+                <option v-for="(option, index) in options"
+                    :key="index" :value="option.code">
+                    {{option.name}}
+                </option>
               </select>
             </label>
             <button type='submit' class='location-button'>Submit</button>
@@ -17,8 +21,27 @@
 </template>
 
 <script>
+//pass in with options prop
+
+//fix this later
+/*function loadCountriesMenu(countryObject) {
+    //loads dropdown menu for countries
+    const selectEl = document.querySelector('#country');
+    const countries = countryObject.forEach(country => {
+        let el = document.createElement("option");
+        el.textContent = country.name;
+        el.value = country.code;
+        selectEl.appendChild(el)
+    });
+}*/
+import countries from '../../store/countries'
 export default {
     name: 'StartPage',
+    data(){
+    return{
+      options: countries
+    };
+  }
 }
 </script>
 
