@@ -1,14 +1,15 @@
 <template>
     <main>
         <h2>Where are you located?</h2>
-        <form class="user-location">
+        <form class="user-location" v-on:submit='submit'>
             <label for='city'>
               <span>City</span>
-              <input type='text' id='city' name='city'>
+              <input type='text' v-model="message" placeholder="edit me">
             </label>
             <label for='country'>
               <span>Country</span>
-              <select>
+              <select v-model="selected">
+                <option disabled value="">Country</option>
                 <option v-for="(option, index) in options"
                     :key="index" :value="option.code">
                     {{option.name}}
@@ -21,26 +22,24 @@
 </template>
 
 <script>
-//pass in with options prop
-
-//fix this later
-/*function loadCountriesMenu(countryObject) {
-    //loads dropdown menu for countries
-    const selectEl = document.querySelector('#country');
-    const countries = countryObject.forEach(country => {
-        let el = document.createElement("option");
-        el.textContent = country.name;
-        el.value = country.code;
-        selectEl.appendChild(el)
-    });
-}*/
 import countries from '../../store/countries'
 export default {
-    name: 'StartPage',
-    data(){
+  name: 'StartPage',
+  data(){
     return{
+      selected: '',
+      message:'',
       options: countries
     };
+  },
+  methods: {
+    submit: function(event) {
+      let vm = this;
+      event.preventDefault();
+      if (event) {
+        console.log(vm.message)
+        console.log(vm.selected)
+      }}
   }
 }
 </script>
