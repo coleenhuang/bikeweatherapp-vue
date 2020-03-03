@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from  'vue-router'
-import StartPage from '../components/page/StartPage.vue';
-import TimePage from '../components/page/TimePage.vue';
-import ResultPage from '../components/page/ResultPage.vue';
+import StartPage from '../components/startpage/StartPage.vue';
+import TimePage from '../components/timepage/TimePage.vue';
+import ResultPage from '../components/resultpage/ResultPage.vue';
 Vue.use(VueRouter);
 
 const routes = [

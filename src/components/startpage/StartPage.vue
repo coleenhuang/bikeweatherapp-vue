@@ -18,6 +18,7 @@
             </label>
             <button type='submit' class='location-button'>Submit</button>
         </form>
+        <p class='error' v-if="error">Sorry, data for that location is not available</p>
     </main>
 </template>
 
@@ -32,7 +33,9 @@ export default {
       selected: '',
       message:'',
       options: countries,
-      key: process.env.VUE_APP_OPEN_KEY
+      key: process.env.VUE_APP_OPEN_KEY,
+      error: false,
+      errormessage: 'Sorry, data for that location is not available'
     };
   },
   methods: {
@@ -42,18 +45,23 @@ export default {
       const city = (vm.message);
       const country = (vm.selected);
       this.getLocation(city, country);
-      router.push({path: 'time'}) //navigates to next page
     },
     getLocation: function(city, country) {
+      //calls open weather current weather data api
+      //gets to get current weather conditions and also coordinates
+      //also checks to see if location is valid 
       const key = 'appid='+ this.key
       fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&${key}`)
       .then(response => {
         if (response.ok) {
             return response.json();
         }
-        throw new Error(response.statusText);
+        throw new Error();
       })
-      .then(response => console.log(response))
+      .then(response => {console.log(response)
+        router.push({path: 'time'}) //navigates to next page
+      })
+      .catch(this.error = true)
     }
   }
 }
