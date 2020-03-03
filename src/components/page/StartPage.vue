@@ -41,7 +41,7 @@ export default {
       event.preventDefault();
       const city = (vm.message);
       const country = (vm.selected);
-      const key = 'appid='+ 'abd493870ee021c2a6d76da504695451'
+      const key = 'appid='+ this.key
       fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&${key}`)
       .then(response => {
         if (response.ok) {
