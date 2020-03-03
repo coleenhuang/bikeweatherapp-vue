@@ -41,6 +41,10 @@ export default {
       event.preventDefault();
       const city = (vm.message);
       const country = (vm.selected);
+      this.getLocation(city, country);
+      router.push({path: 'time'}) //navigates to next page
+    },
+    getLocation: function(city, country) {
       const key = 'appid='+ this.key
       fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&${key}`)
       .then(response => {
@@ -50,17 +54,7 @@ export default {
         throw new Error(response.statusText);
       })
       .then(response => console.log(response))
-      router.push({path: 'time'})
-    },
-    /*getlocation: function(city, country){
-      let key = process.env.VUE_APP_OPEN_KEY;
-      fetch(`api.openweathermap.org/data/2.5/weather?q=${city},${country}`,{
-        method:'GET',
-        headers: {'Authorization': `Bearer ${key}`}
-        })
-      .then(res => res.json())
-      .then(response => console.log(response))
-    }*/
+    }
   }
 }
 </script>
