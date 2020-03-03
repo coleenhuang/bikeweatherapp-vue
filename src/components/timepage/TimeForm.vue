@@ -7,7 +7,13 @@
             <option value=1>Tomorrow</option>
             <option value=2>The day after tomorrow</option>
         </select>
-        <select id="time" v-show='later'></select>
+        <select id="time" v-show='later' v-model="selecttime">
+            <option disabled value="">pick a time</option>
+            <option v-for="(option, index) in options"
+                :key="index" :value="option.value">
+                {{option.time}}
+            </option>
+        </select>
         <button type='submit'>Submit</button>
     </form>
     
@@ -19,15 +25,42 @@ export default {
     data(){
         return{
             selected: '',
-            later: false
+            later: false,
+            selecttime: '',
+            options: []
         }
     },
-    methods: {},
     watch: {
         selected: function(){
-            this.selected==='now'?this.later=false:this.later=true
+            if (this.selected==='now'){
+                this.later=false
+            }
+            else {
+                this.later=true
+                this.getTimeOptions()
+            }
         }
-    }
+    },
+    methods: {
+        getTimeOptions: function(){
+            if (this.selected > 0){
+                for(let i=0; i<24; i++){
+                    this.options.push({
+                        time:`${i}:00`,
+                        value: i})
+                }
+            }
+            else {
+                const today = new Date();
+            const hour = today.getHours();
+            for (let j=(hour+1); j< 24; j++){
+                this.options.push({
+                        time:`${j}:00`,
+                        value: j})
+            }
+            }
+        }
+    },
 
 }
 </script>
