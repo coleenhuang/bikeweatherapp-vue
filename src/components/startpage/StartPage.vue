@@ -25,6 +25,7 @@
 <script>
 import countries from '../../store/countries'
 import router from '../../router/index'
+import info from '../../store/api-info'
 
 export default {
   name: 'StartPage',
@@ -35,7 +36,7 @@ export default {
       options: countries,
       key: process.env.VUE_APP_OPEN_KEY,
       error: false,
-      errormessage: 'Sorry, data for that location is not available'
+      store: info
     };
   },
   methods: {
@@ -44,24 +45,38 @@ export default {
       event.preventDefault();
       const city = (vm.message);
       const country = (vm.selected);
+      this.setLocation(city, country)
       this.getLocation(city, country);
     },
     getLocation: function(city, country) {
       //calls open weather current weather data api
       //gets to get current weather conditions and also coordinates
       //also checks to see if location is valid 
+      const url = 'https://api.openweathermap.org/data/2.5/weather?q='
       const key = 'appid='+ this.key
-      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&${key}`)
+      const units = 'units=metric'
+      fetch(`${url}${city},${country}&${units}&${key}`)
       .then(response => {
         if (response.ok) {
             return response.json();
         }
         throw new Error();
       })
-      .then(response => {console.log(response)
+      .then(responseJson => {
+        console.log(responseJson)
+        this.getCurrentTemp(responseJson)
         router.push({path: 'time'}) //navigates to next page
       })
       .catch(this.error = true)
+    },
+    setLocation(city, country){
+      this.store.location.city = city;
+      this.store.location.country = country;
+      console.log(this.store.location.city)
+    },
+    getCurrentTemp(data){
+      this.store.current.temp = data.main.temp
+      console.log(this.store.current.temp)
     }
   }
 }
