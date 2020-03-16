@@ -6,15 +6,21 @@ export default {
     current: {
         temp: '',
     },
+    time: {
+        now: false,
+        chosentime: {}
+    },
     forecasted: {
         high: '',
         low: '',
         description: '',
         sunrise: '',
         sunset:'',
-        moonrise:'',
-        moonset:'',
-        moonphase:''
+    },
+    night: {
+        bikelight:false,
+        beforesunrise:false,
+        aftersunset: false,
     }
 }
     

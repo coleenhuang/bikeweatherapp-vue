@@ -14,8 +14,7 @@ export default {
   name: 'App',
   components: {
     HeaderTitle
-    },
-  
+    }
 }
 </script>
 
@@ -27,10 +26,5 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-}
-body {
-  background-image: url('assets/Night_sky.png');
-  background-size: cover;
-  color: white;
 }
 </style>

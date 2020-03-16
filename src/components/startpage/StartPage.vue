@@ -69,12 +69,14 @@ export default {
       })
       .catch(this.error = true)
     },
-    setLocation(city, country){
+    setLocation: function(city, country){
+      //adds location to store
       this.store.location.city = city;
       this.store.location.country = country;
       console.log(this.store.location.city)
     },
-    getCurrentTemp(data){
+    getCurrentTemp: function(data){
+      //adds current temp to store
       this.store.current.temp = data.main.temp
       console.log(this.store.current.temp)
     }
