@@ -3,6 +3,7 @@
         <h2>When are you planning on using your bike?</h2>
         <TimeForm @submittime="settime($event)"/>
         <p class='error' v-if="error">Sorry, data for that time is not available</p>
+        <img id='calendar' src='../../assets/calendar.png' alt='Bike wheel' />
     </main>
 </template>
 
@@ -28,7 +29,10 @@ export default {
         settime: function(time){
             //gets and formats the submitted data from TimeForm
             console.log('time sent')
-            if (time.day !=='now'){
+            if (time.day ==='now'){
+                this.chosentime = dayjs()
+            }
+            else {
                 let date = dayjs().add(time.day, 'day');
                 let t = time.hour
                 this.chosentime = dayjs(date).hour(t).minute(0)
@@ -51,7 +55,6 @@ export default {
                 .then(responseJson => {
                     console.log(responseJson)
                     this.getInfo(this.filterData(responseJson))
-                    this.bringBikelight()
                     router.push({path: 'result'}) //navigates to next page
                 })
                 .catch(this.error = true)
@@ -65,17 +68,38 @@ export default {
             this.store.forecasted.description = data.weather.description;
             this.store.forecasted.sunrise = dayjs.unix(data.sunrise_ts);
             this.store.forecasted.sunset = dayjs.unix(data.sunset_ts);
+            this.bringBikelight()
         },
         bringBikelight: function(){
             //sees if bikelight is needed
+            console.log(this.chosentime.format('YYYY-MM-DD'))
             const {sunrise, sunset} = this.store.forecasted
             if (this.chosentime.isBefore(sunrise)===true) {
                 this.store.night.bikelight=true
+                console.log('before')
             }
             else if (this.chosentime.isAfter(sunset)===true) {
                 this.store.night.bikelight=true
+                console.log('after')
             }
         }
     }
 }
 </script>
+
+<style scoped>
+.error {
+    color:#a7442a;
+    font-size: 17px;
+}
+
+#calendar {
+    width: 70%;
+    max-width: 400px;
+}
+@media (min-width:768px) {
+   #calendar {
+     width: 400px;
+   }
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
-    <form id='datetime' v-on:submit.prevent='submittime'>
-       <select id="day" v-model="selecteday">
+    <form class='time-form' id='datetime' v-on:submit.prevent='submittime'>
+       <select id="day" v-model="selecteday" required>
            <option disabled value="">pick a time</option>
             <option value="now">Right now</option>
             <option value=0>Later today</option>
@@ -69,3 +69,24 @@ export default {
 
 }
 </script>
+
+<style scoped>
+.time-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.time-form select{
+    width: 250px;
+    font-size: 16px;
+    margin: 15px auto;
+}
+
+ button {
+    display: block;
+    width: 150px;
+    font-size: 17px;
+    background-color: #a1a9c7;
+  }
+</style>

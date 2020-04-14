@@ -3,11 +3,11 @@
         <h2>Where are you located?</h2>
         <form class="user-location" v-on:submit='submit'>
             <label for='city'>
-              <span>City</span>
+              <span class='place'>City</span>
               <input type='text' v-model="message" placeholder="Enter a city">
             </label>
             <label for='country'>
-              <span>Country</span>
+              <span class='place'>Country</span>
               <select v-model="selected">
                 <option disabled value="">Country</option>
                 <option v-for="(option, index) in options"
@@ -19,6 +19,7 @@
             <button type='submit' class='location-button'>Submit</button>
         </form>
         <p class='error' v-if="error">Sorry, data for that location is not available</p>
+        <img id='biker' src='../../assets/biker.png' alt='Bicyclist' />
     </main>
 </template>
 
@@ -85,5 +86,48 @@ export default {
 </script>
 
 <style scoped>
+  .error {
+    color:#a7442a;
+    font-size: 17px;
+  }
+  .user-location {
+    display: flex;
+    flex-direction: column;
+  }
+  label {
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 20px;
+  }
+  .user-location input[type=text], .user-location select {
+        width: 300px;
+        font-size: 16px;
+    }
+  .place {
+    padding: 1rem;
+  }
+  button {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 17px;
+    width: 150px;
+    background-color: #a1a9c7;
+  }
 
+  #biker {
+    width: 70%;
+    margin: 0.25rem;
+    
+  }
+ 
+ @media (min-width:768px) {
+   #biker {
+     width: 500px;
+   }
+ }
+  @media (min-width: 992px) {
+  label {
+    display: inline-block;
+  }
+}
 </style>

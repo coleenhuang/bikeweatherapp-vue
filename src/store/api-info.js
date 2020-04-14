@@ -19,8 +19,6 @@ export default {
     },
     night: {
         bikelight:false,
-        beforesunrise:false,
-        aftersunset: false,
     }
 }
     

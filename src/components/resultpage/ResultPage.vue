@@ -1,6 +1,6 @@
 <template>
     <main>
-        <p v-if='now'>{{store.current.temp}}</p>
+        <p class="current-temp" v-if='now'>{{store.current.temp}}°C</p>
         <p>{{store.forecasted.description}}</p>
         <div class="lowhigh">
             <p>{{store.forecasted.low}}°C</p>
@@ -27,7 +27,12 @@ export default {
     },
     methods: {
         restart: function(){
+            this.reset()
             router.push({path: '/'})
+        },
+        reset: function(){
+            this.store.time.now = false
+            this.store.night.bikelight = false
         }
     }
 }
@@ -37,6 +42,10 @@ export default {
 <style scoped>
     main {
         padding: 2rem;
+        font-size: 18px;
+    }
+    .current-temp {
+        font-size: 20px;
     }
     .lowhigh {
         display: flex;
@@ -45,5 +54,10 @@ export default {
     }
     .restart {
         padding: 0.75rem 2rem;
+    }
+    button {
+        font-size: 17px;
+        width: 150px;
+        background-color: #a1a9c7;
     }
 </style>
